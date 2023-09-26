@@ -1,0 +1,2 @@
+# Stack
+Daily Task Application
