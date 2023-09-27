@@ -1,9 +1,73 @@
 from django.shortcuts import render, redirect
 from django.views import View
+from Stack.classes.user import userClass
+from .models import user
 
 # Create your views here.
 
-class Login(View):
+class helpers():
+    def redirectIfNotLoggedIn(request):
+        if len(request.session.items()) == 0:
+            return True
+        if request.session["username"] is None:
+            return True
+        else:
+            return False
+
+class login(View):
 
     def get(self, request):
         return render(request, "login.html")
+    def post(self, request):
+        if 'forgot_password' in request.POST:
+            return redirect("/password_reset/")
+
+        noSuchUser = False
+        blankName = False
+        badPassword = False
+
+        try:
+            email = request.POST['email']
+            currentUser = user.objects.get(email=email)
+            password = request.POST['InputPassword']
+            password = userClass.hashPass(password)
+            badPassword = (currentUser.password != password)
+        except Exception as e:
+            noSuchUser = True
+
+        if noSuchUser:
+            return render(request, "login.html", {"error_message": "No such user exists!"})
+
+        elif badPassword:
+            return render(request, "login.html", {"error_message": "Incorrect password!"})
+        else:
+            request.session["username"] = currentUser.email
+            # request.session["name"] = user.name
+            return redirect("/tasks/")
+    
+
+class signup(View):
+    def get(self, request):
+        return render(request, "signup.html")
+
+    def post(self, request):
+        firstName = request.POST.get('firstName')
+        lastName = request.POST.get('lastName')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirmPassword = request.POST.get('confirmPassword')
+        try:
+            userClass.createUser(self, firstName, lastName, email, password, confirmPassword)
+            return render(request, "signup.html",
+                          {'success_message': "User successfully created!"})
+        except Exception as e:
+            return render(request, "signup.html", {'error_message': str(e)})
+        
+class tasks(View):
+    def get(self, request):
+        if helpers.redirectIfNotLoggedIn(request):
+             return redirect("/")
+
+        currentSessionEmail = request.session["username"]
+        currentUser = user.objects.get(email=currentSessionEmail)
+        return render(request, "tasks.html", {"currentUser": currentUser})

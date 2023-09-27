@@ -6,10 +6,13 @@ from django.views.generic import RedirectView
 
 import base
 
-from Stack.views import Login
+from Stack.views import login, signup, tasks
 
 urlpatterns = [
     path('', include('pwa.urls')),
-    path('', Login.as_view(), name='login'),
+    path('', login.as_view(), name='login'),
     path('admin/', admin.site.urls),
+    path('signup/', signup.as_view(), name='signup'),
+    path('tasks/', tasks.as_view(), name='tasks'),
+
 ]
