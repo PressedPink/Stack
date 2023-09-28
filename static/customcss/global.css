@@ -1,0 +1,19 @@
+@media (max-width: 600px) {
+  .pageWidth {
+    max-width: 100%;
+  }
+  body {
+    background-size: 100%;
+    overflow: auto;
+  }
+}
+
+@media (min-width: 601px) {
+  .pageWidth {
+    max-width: 40rem;
+  }
+}
+
+.container {
+  margin-top: 12%;
+}

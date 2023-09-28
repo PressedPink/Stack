@@ -1,0 +1,41 @@
+.button-container {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Roboto", sans-serif;
+  }
+
+  #customBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #09bc8a;
+    border-color: #09bc8a;
+    color: #444;
+    height: 37px;
+    width: 100px;
+    border-radius: 5px;
+  }
+  #customBtn:hover {
+    cursor: pointer;
+  }
+  span.label {
+    font-family: serif;
+    font-weight: normal;
+  }
+  span.icon {
+    background: url("/static/images/Google\ Icon.png") transparent 5px 50%
+      no-repeat;
+    width: 25px;
+    height: 25px;
+    background-size: 20px 20px;
+  }
+
+  span.buttonText {
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 6px;
+    padding-right: 6px;
+    font-family: "Roboto", sans-serif;
+  }

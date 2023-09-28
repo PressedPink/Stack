@@ -2,6 +2,13 @@ from django.shortcuts import render, redirect
 from django.views import View
 from Stack.classes.user import userClass
 from .models import user
+from django.http import JsonResponse
+import google.oauth2.id_token
+from django.views import View
+from django.shortcuts import render, redirect
+from google.oauth2 import id_token
+from google.auth.transport import requests
+
 
 # Create your views here.
 
@@ -21,6 +28,7 @@ class login(View):
     def post(self, request):
         if 'forgot_password' in request.POST:
             return redirect("/password_reset/")
+        
 
         noSuchUser = False
         blankName = False
@@ -71,3 +79,30 @@ class tasks(View):
         currentSessionEmail = request.session["username"]
         currentUser = user.objects.get(email=currentSessionEmail)
         return render(request, "tasks.html", {"currentUser": currentUser})
+
+def google_auth_callback(request):
+    # Retrieve the ID token from the client-side (you should validate this)
+    id_token = request.POST.get('id_token')
+
+    # Verify the ID token using the Google API client library
+    try:
+        # Verify the ID token using your Google API Client ID
+        # Replace 'YOUR_CLIENT_ID' with your actual client ID
+        id_info = google.oauth2.id_token.verify_oauth2_token(
+            id_token, None
+        )
+
+        # Get the user's email and other information from id_info
+        user_email = id_info['email']
+        
+        # You can now create a session for the user or perform other actions
+        # like database lookups to check if the user exists in your system.
+
+        # Redirect the user to the tasks page or wherever you need them to go.
+        return redirect("/tasks/")
+    except ValueError as e:
+        # Handle verification error (e.g., invalid token)
+        return JsonResponse({"error": "Invalid token"})
+
+    # Handle other exceptions and errors as needed
+    return JsonResponse({"error": "An error occurred"})
