@@ -36,11 +36,10 @@ button[type="submit"] {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
 }
 
-button[type="submit"]:hover {
-    background-color: #0056b3;
+#submitCreateTaskButton {
+    cursor: default;
 }
 
 /* Style the close button */
@@ -50,8 +49,4 @@ button[type="submit"]:hover {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-
-#closeDialogButton:hover {
-    background-color: #999;
 }

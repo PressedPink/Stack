@@ -17,3 +17,4 @@ class task(models.Model):
     lock = models.BooleanField()
     recurring = models.BooleanField()
     time = models.TimeField()
+    user = models.ForeignKey(user, on_delete=models.CASCADE, null=False)

@@ -20,6 +20,11 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
     crossorigin="anonymous"></script>
+  <style>
+    .container {
+      margin-top: 6%;
+    }
+  </style>
 </head>
 
 <body>
@@ -30,13 +35,15 @@
           <h1 class="text-center" style="color: #ffffff">
             {{currentUser.firstName}}'s Tasks
           </h1>
-          <button type="submit" class="btn btn-primary" name="createTask" id="createTask" style="
+          <div class="button-container d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary" name="createTask" id="createTask" style="
               background-color: #09bc8a;
               border-color: #09bc8a;
               color: #444;
           ">
-            <span class="buttonText">Create Task</span>
-          </button>
+              <span class="buttonText">Create Task</span>
+            </button>
+          </div>
           <dialog id="taskDialog">
             <button class="btn btn-danger" id="closeDialogButton">X</button>
             <br>
@@ -63,54 +70,12 @@
                 <label class="form-time-label" style="color: #ffffff;">Time</label>
               </div>
               <br>
-              <button id="submitCreateTaskButton" type="submit" class="btn btn-primary">Submit</button>
+              <button id="submitCreateTaskButton" type="submit" class="btn">Submit</button>
             </form>
           </dialog>
         </div>
         <div class="card-body rounded-bottom" style="background-color: #151515">
           <ul class="sortableList">
-            <li class="item" draggable="true">
-              <div class="details">
-                <img src="/static/images/Google Icon.png">
-                <span>Task 1</span>
-              </div>
-              <i class="uil uil-draggabledots"></i>
-            </li>
-            <li class="item" draggable="true">
-              <div class="details">
-                <img src="/static/images/Google Icon.png">
-                <span>Task 2</span>
-              </div>
-              <i class="uil uil-draggabledots"></i>
-            </li>
-            <li class="item" draggable="true">
-              <div class="details">
-                <img src="/static/images/Google Icon.png">
-                <span>Task 3</span>
-              </div>
-              <i class="uil uil-draggabledots"></i>
-            </li>
-            <li class="item" draggable="true">
-              <div class="details">
-                <img src="/static/images/Google Icon.png">
-                <span>Task 4</span>
-              </div>
-              <i class="uil uil-draggabledots"></i>
-            </li>
-            <li class="item" draggable="true">
-              <div class="details">
-                <img src="/static/images/Google Icon.png">
-                <span>Task 5</span>
-              </div>
-              <i class="uil uil-draggabledots"></i>
-            </li>
-            <li class="item" draggable="true">
-              <div class="details">
-                <img src="/static/images/Google Icon.png">
-                <span>Task 6</span>
-              </div>
-              <i class="uil uil-draggabledots"></i>
-            </li>
           </ul>
         </div>
       </div>

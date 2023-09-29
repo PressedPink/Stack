@@ -1,7 +1,7 @@
 from Stack.models import task
 
 class taskClass:
-    def createTask(self, name, description, lock, recurring, time):
+    def createTask(self, name, description, lock, recurring, time, user):
         #validateName
         #processLock
         #reoccuringTag
@@ -10,7 +10,7 @@ class taskClass:
         print("in taskClass")
 
         if taskClass.validateName(self, name):
-            newTask = task(name = name, description = description, lock = lock, recurring = recurring, time = time)
+            newTask = task(name = name, description = description, lock = lock, recurring = recurring, time = time, user = user)
             newTask.save()
 
     def validateName(self, name):

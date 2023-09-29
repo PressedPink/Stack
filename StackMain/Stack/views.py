@@ -10,6 +10,7 @@ from django.views import View
 from django.shortcuts import render, redirect
 from google.oauth2 import id_token
 from google.auth.transport import requests
+from django.core import serializers
 
 
 # Create your views here.
@@ -85,17 +86,24 @@ class tasks(View):
 
 class dbTask(View):
     def get(self, request):
-        pass
+        currentSessionEmail = request.session["username"]
+        currentUser = user.objects.get(email=currentSessionEmail)
+        allTasks = serializers.serialize('python', task.objects.filter(user = currentUser))
+        response_data ={"tasks": [task["fields"] for task in allTasks]}
+        return JsonResponse(response_data)
+    
     def post(self, request):
-        print("here")
+        currentSessionEmail = request.session["username"]
+        currentUser = user.objects.get(email=currentSessionEmail)
         taskData = json.loads(request.body)
         name = taskData['name']
         description = taskData['description']
         recurring = taskData['recurring']
         time = taskData['time']
         lock = False
-        taskClass.createTask(self, name, description, lock, recurring, time)
-        response_data ={"message": "Task already exists!"}
+        taskClass.createTask(self, name, description, lock, recurring, time, currentUser)
+        allTasks = serializers.serialize('python', task.objects.filter(user = currentUser))
+        response_data ={"message": "Task successfully created!", "tasks": [task["fields"] for task in allTasks]}
         return JsonResponse(response_data)
 
 
