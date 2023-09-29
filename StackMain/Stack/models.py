@@ -10,3 +10,10 @@ class user(models.Model):
     # records if user is active for security purposes
     active = models.BooleanField
     forget_password_token = models.CharField(max_length=100, default="")
+
+class task(models.Model):
+    name = models.CharField(max_length=40)
+    description = models.CharField(max_length=200)
+    lock = models.BooleanField
+    reoccuring = models.BooleanField
+    time = models.TimeField

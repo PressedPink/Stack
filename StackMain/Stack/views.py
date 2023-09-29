@@ -4,6 +4,7 @@ from Stack.classes.user import userClass
 from .models import user
 from django.http import JsonResponse
 import google.oauth2.id_token
+import json
 from django.views import View
 from django.shortcuts import render, redirect
 from google.oauth2 import id_token
@@ -79,6 +80,32 @@ class tasks(View):
         currentSessionEmail = request.session["username"]
         currentUser = user.objects.get(email=currentSessionEmail)
         return render(request, "tasks.html", {"currentUser": currentUser})
+    def post(self, request):
+        try:
+            print("made it to create")
+            # Parse the JSON data from the request body
+            data = json.loads(request.body.decode('utf-8'))
+
+            # Extract relevant fields from the JSON data
+            task_name = data.get('name')
+            description = data.get('description')
+            reoccurring = data.get('reoccurring')
+            time = data.get('time')
+
+            # Perform any necessary processing (e.g., save to database)
+            # Replace this with your actual backend logic
+
+            # Return a JSON response indicating success
+            response_data = {'message': 'Task created successfully'}
+            return JsonResponse(response_data, status=201)
+        except json.JSONDecodeError as e:
+            # Handle JSON decoding errors
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+        except Exception as e:
+            # Handle any other errors or validation issues
+            return JsonResponse({'error': str(e)}, status=400)
+    
+
 
 def google_auth_callback(request):
     # Retrieve the ID token from the client-side (you should validate this)

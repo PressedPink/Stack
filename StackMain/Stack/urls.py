@@ -14,5 +14,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', signup.as_view(), name='signup'),
     path('tasks/', tasks.as_view(), name='tasks'),
-
 ]
