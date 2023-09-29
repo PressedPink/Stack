@@ -6,7 +6,7 @@ from django.views.generic import RedirectView
 
 import base
 
-from Stack.views import login, signup, tasks
+from Stack.views import login, signup, tasks, dbTask
 
 urlpatterns = [
     path('', include('pwa.urls')),
@@ -14,4 +14,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', signup.as_view(), name='signup'),
     path('tasks/', tasks.as_view(), name='tasks'),
+    path('dbTask/', dbTask.as_view(), name='manageTasks'),
 ]

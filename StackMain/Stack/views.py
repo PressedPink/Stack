@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from Stack.classes.user import userClass
-from .models import user
+from .models import user, task
+from Stack.classes.task import taskClass
 from django.http import JsonResponse
 import google.oauth2.id_token
 import json
@@ -80,31 +81,23 @@ class tasks(View):
         currentSessionEmail = request.session["username"]
         currentUser = user.objects.get(email=currentSessionEmail)
         return render(request, "tasks.html", {"currentUser": currentUser})
+        
+
+class dbTask(View):
+    def get(self, request):
+        pass
     def post(self, request):
-        try:
-            print("made it to create")
-            # Parse the JSON data from the request body
-            data = json.loads(request.body.decode('utf-8'))
+        print("here")
+        taskData = json.loads(request.body)
+        name = taskData['name']
+        description = taskData['description']
+        recurring = taskData['recurring']
+        time = taskData['time']
+        lock = False
+        taskClass.createTask(self, name, description, lock, recurring, time)
+        response_data ={"message": "Task already exists!"}
+        return JsonResponse(response_data)
 
-            # Extract relevant fields from the JSON data
-            task_name = data.get('name')
-            description = data.get('description')
-            reoccurring = data.get('reoccurring')
-            time = data.get('time')
-
-            # Perform any necessary processing (e.g., save to database)
-            # Replace this with your actual backend logic
-
-            # Return a JSON response indicating success
-            response_data = {'message': 'Task created successfully'}
-            return JsonResponse(response_data, status=201)
-        except json.JSONDecodeError as e:
-            # Handle JSON decoding errors
-            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
-        except Exception as e:
-            # Handle any other errors or validation issues
-            return JsonResponse({'error': str(e)}, status=400)
-    
 
 
 def google_auth_callback(request):

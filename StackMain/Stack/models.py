@@ -14,6 +14,6 @@ class user(models.Model):
 class task(models.Model):
     name = models.CharField(max_length=40)
     description = models.CharField(max_length=200)
-    lock = models.BooleanField
-    reoccuring = models.BooleanField
-    time = models.TimeField
+    lock = models.BooleanField()
+    recurring = models.BooleanField()
+    time = models.TimeField()

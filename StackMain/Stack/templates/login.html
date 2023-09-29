@@ -9,7 +9,8 @@
   <title>Stack Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta charset="UTF-8" />
-  <meta name="google-signin-client_id" content="1009503205449-dui0nfvkoebkimfc1l92qce38eg6p5fk.apps.googleusercontent.com" />
+  <meta name="google-signin-client_id"
+    content="1009503205449-dui0nfvkoebkimfc1l92qce38eg6p5fk.apps.googleusercontent.com" />
   <link rel="stylesheet" href="/static/css/bootstrap.css" />
   <link rel="stylesheet" href="/static/customcss/global.css" />
   <link rel="stylesheet" href="/static/customcss/googleButton.css" />
@@ -82,12 +83,12 @@
               </div>
               <br />
               <div class="button-container">
-                <button type="submit" name="login" class="btn btn-primary" style="
+                <button type="submit" class="btn btn-primary" name="forgot_password" style="
                       background-color: #09bc8a;
                       border-color: #09bc8a;
                       color: #444;
                     ">
-                  <span class="buttonText">Submit</span>
+                  <span class="buttonText">Signup</span>
                 </button>
               </div>
               <div id="gSignInWrapper" class="button-container">
@@ -100,18 +101,21 @@
               <script>
                 startApp();
               </script>
-
               <div class="button-container">
-                <button type="submit" class="btn btn-primary" name="forgot_password" style="
+                <button type="submit" name="login" class="btn btn-primary" style="
                       background-color: #09bc8a;
                       border-color: #09bc8a;
                       color: #444;
                     ">
-                  <span class="buttonText">Forgot Password?</span>
+                  <span class="buttonText">Submit</span>
                 </button>
               </div>
             </div>
           </form>
+          <div>
+            <p style="text-align: center; font-size: small;">Don't have an account yet? Sign up <a
+                href="/signup">here</a></p>
+          </div>
         </div>
       </div>
     </section>
